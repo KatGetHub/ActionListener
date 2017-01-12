@@ -18,7 +18,7 @@ public class ScrMenu implements Screen, InputProcessor {
 
     GamMenu gamMenu;
     TbsMenu tbsMenu;
-    TbMenu tbPlay, tbGameover;
+    TbMenu tbPlay, tbRules;
     Stage stage;
     SpriteBatch batch;
     BitmapFont screenName;
@@ -34,12 +34,17 @@ public class ScrMenu implements Screen, InputProcessor {
         tbsMenu = new TbsMenu();
         batch = new SpriteBatch();
         screenName = new BitmapFont();
-        tbPlay = new TbMenu("ENTER", tbsMenu);
+        tbPlay = new TbMenu("PLAY", tbsMenu);
+        tbRules = new TbMenu("CONTROLS", tbsMenu);
         tbPlay.setY(0);
         tbPlay.setX(440);
+        tbRules.setY(0);
+        tbRules.setX(0);
         stage.addActor(tbPlay);
+        stage.addActor(tbRules);
         Gdx.input.setInputProcessor(stage);
         btnPlayListener();
+        btnRulesListener();
         BackGround = new Texture(Gdx.files.internal("menu.png"));
     }
 
@@ -59,6 +64,15 @@ public class ScrMenu implements Screen, InputProcessor {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 gamMenu.updateState(1); // switch to Play screen.
+            }
+        });
+    }
+
+    public void btnRulesListener() {
+        tbRules.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                gamMenu.updateState(2); // switch to rules screen.
             }
         });
     }
