@@ -15,6 +15,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import static java.lang.Math.abs;
+import static java.lang.Math.atan;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 public class ScrPlay implements Screen, InputProcessor {
 
@@ -36,6 +40,11 @@ public class ScrPlay implements Screen, InputProcessor {
     float spriteX2 = 100;
     float spriteY2 = 100;
     int nDx, nDy, nDir;
+    int nPixRenderTimer = 0;
+    int nDirPixX, nDirPixY;       // Direction Pix wants to walk in.
+    double nDeltaPixX, nDeltaPixY;
+    double dPixAngle;
+    int nPixXi, nPixYi;   // Pix X and Y increment
     Texture BackGround;
 
     public ScrPlay(GamMenu _gamMenu) {  //Referencing the main class.
@@ -133,6 +142,29 @@ public class ScrPlay implements Screen, InputProcessor {
             }
 
         }
+        
+        nPixRenderTimer++;
+        if (nPixRenderTimer == 10) {
+            nPixRenderTimer = 0;
+            
+            nDirPixX = 1;
+            if (spriteX < spriteX2) nDirPixX = -1;
+            nDirPixY = 1;
+            if (spriteY < spriteY2) nDirPixY = -1;
+            
+            nDeltaPixX = abs(spriteX2 - spriteX);
+            nDeltaPixY = abs(spriteY2 - spriteY);
+            
+            dPixAngle = atan(nDeltaPixX / nDeltaPixY);
+            
+            nPixXi = (int) (5 * cos(dPixAngle) * nDirPixX);
+            nPixYi = (int) (5 * sin(dPixAngle) * nDirPixY);
+            
+            spriteX2 += nPixXi;
+            spriteY2 += nPixYi;
+            
+        }
+        
         batch.draw(trTemp2, spriteX2, spriteY2, 40, 40);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
