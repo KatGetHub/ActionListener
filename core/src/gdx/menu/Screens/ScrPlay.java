@@ -35,7 +35,7 @@ public class ScrPlay implements Screen, InputProcessor {
     int fW, fH, fSx, fSy; // height and width of SpriteSheet image - and the starting upper coordinates on the Sprite Sheet
     int nFrame, nPos;
     float spriteSpeed = 10.0f; // 10 pixels per second.
-    float spriteX = 200;
+    float spriteX = 400;
     float spriteY = 200;
     float spriteX2 = 100;
     float spriteY2 = 100;
@@ -144,7 +144,7 @@ public class ScrPlay implements Screen, InputProcessor {
         }
         
         nPixRenderTimer++;
-        if (nPixRenderTimer == 10) {
+        if (nPixRenderTimer == 6) {
             nPixRenderTimer = 0;
             
             nDirPixX = 1;
@@ -157,8 +157,8 @@ public class ScrPlay implements Screen, InputProcessor {
             
             dPixAngle = atan(nDeltaPixX / nDeltaPixY);
             
-            nPixXi = (int) (5 * cos(dPixAngle) * nDirPixX);
-            nPixYi = (int) (5 * sin(dPixAngle) * nDirPixY);
+            nPixXi = (int) (5 * sin(dPixAngle) * nDirPixX);
+            nPixYi = (int) (5 * cos(dPixAngle) * nDirPixY);
             
             spriteX2 += nPixXi;
             spriteY2 += nPixYi;
