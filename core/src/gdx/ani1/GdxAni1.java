@@ -25,7 +25,7 @@ public class GdxAni1 extends ApplicationAdapter implements InputProcessor {
     float spriteX;
     float spriteY;
     int nDx, nDy, nDir;
-    Texture BackGround;
+    Texture BackGround, BackGround2;
    
 
     @Override
@@ -40,7 +40,9 @@ public class GdxAni1 extends ApplicationAdapter implements InputProcessor {
         txtBack = new Texture("back2.png");
         txtRight = new Texture("right2.png");
         txtLeft = new Texture("left2.png");
-        BackGround = new Texture(Gdx.files.internal("town.png"));
+ //      BackGround = new Texture("pic2.png");
+ //       BackGround2 = new Texture("town.png");
+        BackGround = new Texture(Gdx.files.internal("pic2.png"));
         fW = txSheet.getWidth() / 4;
         fH = txSheet.getHeight() / 4;
         System.out.println(fW + " " + fH);

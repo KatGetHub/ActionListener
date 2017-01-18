@@ -42,10 +42,11 @@ public class ScrPlay implements Screen, InputProcessor {
     int nDx, nDy, nDir;
     int nPixRenderTimer = 0;
     int nDirPixX, nDirPixY;       // Direction Pix wants to walk in.
+    int nRoomNum = 0;             // Current room number we are in  
     double nDeltaPixX, nDeltaPixY;
     double dPixAngle;
     int nPixXi, nPixYi;   // Pix X and Y increment
-    Texture BackGround;
+    Texture arrBackGround[];
 
     public ScrPlay(GamMenu _gamMenu) {  //Referencing the main class.
         gamMenu = _gamMenu;
@@ -61,7 +62,12 @@ public class ScrPlay implements Screen, InputProcessor {
         txtRight = new Texture("right2.png");
         txtLeft = new Texture("left2.png");
         txSheet2 = new Texture("pic4.png");
-        BackGround = new Texture(Gdx.files.internal("town.png"));
+        arrBackGround = new Texture[9];
+        
+        arrBackGround[0] = new Texture("town.png");
+        arrBackGround[1] = new Texture("pic2.png");
+        
+        //BackGround = new Texture(Gdx.files.internal("town.png"));
         fW = txSheet.getWidth() / 4;
         fH = txSheet.getHeight() / 4;
         System.out.println(fW + " " + fH);
@@ -105,29 +111,38 @@ public class ScrPlay implements Screen, InputProcessor {
         nDx = 0;
         nDy = 0;
         nDir = 0;
+        
+        if (spriteX > 600 && nRoomNum == 0) {
+            nRoomNum = 1;
+            spriteX = 0;
+        }
+        if (spriteX < 0 && nRoomNum == 1) {
+            nRoomNum = 0;
+            spriteX = 600;
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            batch.draw(BackGround, 0, 0, 800, 500);
+            batch.draw(arrBackGround[nRoomNum], 0, 0, 800, 500);
             nDy = -3;
             nPos = 0;
             batch.draw(trTemp, spriteX, spriteY, 40, 70);
         } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            batch.draw(BackGround, 0, 0, 800, 500);
+            batch.draw(arrBackGround[nRoomNum], 0, 0, 800, 500);
             nDy = 3;
             nPos = 1;
             batch.draw(trTemp, spriteX, spriteY, 40, 70);
         } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            batch.draw(BackGround, 0, 0, 800, 500);
+            batch.draw(arrBackGround[nRoomNum], 0, 0, 800, 500);
             nDx = -3;
             nPos = 2;
             batch.draw(trTemp, spriteX, spriteY, 40, 70);
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            batch.draw(BackGround, 0, 0, 800, 500);
+            batch.draw(arrBackGround[nRoomNum], 0, 0, 800, 500);
             nDx = 3;
             nPos = 3;
             batch.draw(trTemp, spriteX, spriteY, 40, 70);
         } else {
-            batch.draw(BackGround, 0, 0, 800, 500);
+            batch.draw(arrBackGround[nRoomNum], 0, 0, 800, 500);
             if (nPos == 0) {
                 batch.draw(txtFront, spriteX, spriteY, 40, 60);
             }
@@ -168,7 +183,7 @@ public class ScrPlay implements Screen, InputProcessor {
         batch.draw(trTemp2, spriteX2, spriteY2, 40, 40);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-            batch.draw(BackGround, 0, 0, 800, 500);
+            batch.draw(arrBackGround[nRoomNum], 0, 0, 800, 500);
             batch.draw(trTemp, spriteX, spriteY, 40, 70);
             nDx = (nDx * 2);
             nDy = (nDy * 2);
